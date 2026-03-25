@@ -1,6 +1,10 @@
 ## wire.nim -- Protobuf wire format encode/decode.
 {.experimental: "strict_funcs".}
-import lattice
+import basis/code/choice
+
+type
+  BridgeError* = object of CatchableError
+
 type
   WireType* = enum
     wtVarint = 0, wt64Bit = 1, wtLengthDelimited = 2, wt32Bit = 5

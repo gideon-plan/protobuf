@@ -1,3 +1,3 @@
 {.experimental: "strict_funcs".}
-import protobuf/[wire, types, parser, encode, decode, lattice]
-export wire, types, parser, encode, decode, lattice
+import protobuf/[wire, types, parser, encode, decode]
+export wire, types, parser, encode, decode

@@ -1,7 +1,7 @@
 ## decode.nim -- Generic message decoder.
 {.experimental: "strict_funcs".}
 
-import lattice, wire
+import basis/code/choice, wire
 type DecodedField* = object
   field_number*: int
   wire_type*: WireType
@@ -9,7 +9,7 @@ type DecodedField* = object
   bytes_val*: string
   fixed32_val*: uint32
   fixed64_val*: uint64
-proc decode_message*(buf: string): Result[seq[DecodedField], BridgeError] =
+proc decode_message*(buf: string): Choice[seq[DecodedField]] =
   var pos = 0
   var fields: seq[DecodedField]
   while pos < buf.len:
@@ -21,4 +21,4 @@ proc decode_message*(buf: string): Result[seq[DecodedField], BridgeError] =
     of wtLengthDelimited: df.bytes_val = decode_bytes(buf, pos)
     of wt32Bit: df.fixed32_val = decode_fixed32(buf, pos)
     fields.add(df)
-  Result[seq[DecodedField], BridgeError].good(fields)
+  good(fields)

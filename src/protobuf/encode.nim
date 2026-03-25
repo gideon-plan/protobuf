@@ -1,7 +1,7 @@
 ## encode.nim -- Generic message encoder.
 {.experimental: "strict_funcs".}
 import std/tables
-import lattice, wire, types
+import basis/code/choice, wire, types
 type FieldValue* = object
   case kind*: ProtoFieldType
   of pftInt32, pftInt64, pftUint32, pftUint64, pftSint32, pftSint64, pftEnum:

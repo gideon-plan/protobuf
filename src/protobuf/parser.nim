@@ -1,8 +1,8 @@
 ## parser.nim -- .proto file parser (simplified).
 {.experimental: "strict_funcs".}
 import std/strutils
-import lattice, types
-proc parse_proto*(source: string): Result[ProtoFile, BridgeError] =
+import basis/code/choice, types
+proc parse_proto*(source: string): Choice[ProtoFile] =
   var pf: ProtoFile
   pf.syntax = "proto3"
   var current_msg: ProtoMessage
@@ -60,4 +60,4 @@ proc parse_proto*(source: string): Result[ProtoFile, BridgeError] =
         current_msg.fields.add(ProtoField(name: fname, number: fnum,
                                           field_type: ft, repeated: repeated,
                                           message_name: if ft == pftMessage: type_str else: ""))
-  Result[ProtoFile, BridgeError].good(pf)
+  good(pf)
